@@ -1,6 +1,6 @@
 <?php
 
-require_once 'bbprioritycash22.civix.php';
+require_once 'bbprioritycash2.civix.php';
 
 /**
  * Implements hook_civicrm_config().
