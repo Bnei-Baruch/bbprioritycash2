@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <extension key="info.kabbalah.payment.bbprioritycash2" type="module">
   <file>bbprioritycash2</file>
-  <name>(BBPC) BB Priority Real Cash Payment Processor</name>
-  <description>Register Real Cash Payment in Priority</description>
+  <name>(BBPC) BB Priority Cash Payment Processor</name>
+  <description>Register Payment in Priority</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Gregory Shilin</author>
