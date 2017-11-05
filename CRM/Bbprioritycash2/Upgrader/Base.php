@@ -8,7 +8,7 @@
 /**
  * Base class which provides helpers to execute upgrade logic.
  */
-class CRM_Bbprioritycash_Upgrader_Base {
+class CRM_Bbprioritycash2_Upgrader_Base {
 
   /**
    * @var variessubclassofhtis
@@ -41,8 +41,8 @@ class CRM_Bbprioritycash_Upgrader_Base {
   static public function instance() {
     if (!self::$instance) {
       // FIXME auto-generate.
-      self::$instance = new CRM_Bbprioritycash_Upgrader(
-        'info.kabbalah.payment.bbprioritycash',
+      self::$instance = new CRM_Bbprioritycash2_Upgrader(
+        'info.kabbalah.payment.bbprioritycash2',
         realpath(__DIR__ . '/../../../')
       );
     }
