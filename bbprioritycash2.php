@@ -29,8 +29,8 @@ function bbprioritycash2_civicrm_install() {
   $params = array(
     'version' => 3,
     'name' => 'BBPC',
-    'title' => 'BB Priority Real CASH Payment Processor',
-    'description' => 'Register Real Cash Payment in Priority',
+    'title' => 'BB Priority CASH Payment Processor',
+    'description' => 'Register Cash Payment in Priority',
     'class_name' => 'BBPriorityCash2',
     'billing_mode' => 'notify', // Corresponds to the Processor Type: Form (1), Button (2), Special (3) or Notify (4)
     'user_name_label' => 'User',
