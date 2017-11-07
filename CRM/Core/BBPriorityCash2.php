@@ -7,6 +7,7 @@
  */
 
 require_once 'CRM/Core/Payment.php';
+require_once 'BBPriorityCash2IPN.php';
 
 /**
  * BBPriorityCash payment processor
@@ -186,6 +187,8 @@ class CRM_Core_BBPriorityCash2 extends CRM_Core_Payment
             exit();
         */
 
+        $config = CRM_Core_Config::singleton();
+
         if ($component != 'contribute' && $component != 'event') {
             CRM_Core_Error::fatal(ts('Component is invalid'));
         }
@@ -200,11 +203,71 @@ class CRM_Core_BBPriorityCash2 extends CRM_Core_Payment
             );
         }
 
-        // Print the tpl to redirect to Pelecard
+        $merchantUrlParams = "contactID={$params['contactID']}&contributionID={$params['contributionID']}";
+        if ($component == 'event') {
+            $merchantUrlParams .= "&eventID={$params['eventID']}&participantID={$params['participantID']}";
+        } else {
+            $membershipID = CRM_Utils_Array::value('membershipID', $params);
+            if ($membershipID) {
+                $merchantUrlParams .= "&membershipID=$membershipID";
+            }
+            $contributionPageID = CRM_Utils_Array::value('contributionPageID', $params) ||
+                CRM_Utils_Array::value('contribution_page_id', $params);
+            if ($contributionPageID) {
+                $merchantUrlParams .= "&contributionPageID=$contributionPageID";
+            }
+            $relatedContactID = CRM_Utils_Array::value('related_contact', $params);
+            if ($relatedContactID) {
+                $merchantUrlParams .= "&relatedContactID=$relatedContactID";
+
+                $onBehalfDupeAlert = CRM_Utils_Array::value('onbehalf_dupe_alert', $params);
+                if ($onBehalfDupeAlert) {
+                    $merchantUrlParams .= "&onBehalfDupeAlert=$onBehalfDupeAlert";
+                }
+            }
+        }
+
+        $merchantUrl = $config->userFrameworkBaseURL . 'civicrm/payment/ipn?processor_name=BBP&mode=' . $this->_mode
+            . '&md=' . $component . '&qfKey=' . $params["qfKey"] . '&' . $merchantUrlParams
+            . '&returnURL=' . base64_url_encode($returnURL);
+
         $template = CRM_Core_Smarty::singleton();
-        $template->assign('url', $returnURL);
+        $template->assign('url', $merchantUrl);
         print $template->fetch('CRM/Core/Payment/Bbprioritycash2.tpl');
 
         CRM_Utils_System::civiExit();
     }
+
+    public function handlePaymentNotification()
+    {
+        $input = $ids = $objects = array();
+        $ipn = new CRM_Core_Payment_BBPriorityCash2IPN();
+
+        // load vars in $input, &ids
+        $ipn->getInput($input, $ids);
+
+        $paymentProcessorTypeID = CRM_Core_DAO::getFieldValue('CRM_Financial_DAO_PaymentProcessorType', $this->_processorName, 'id', 'name');
+        $paymentProcessorID = (int)civicrm_api3('PaymentProcessor', 'getvalue', array(
+            'is_test' => ($this->_mode == 'test') ? 1 : 0,
+            'options' => array('limit' => 1),
+            'payment_processor_type_id' => $paymentProcessorTypeID,
+            'return' => 'id',
+        ));
+        if (!$ipn->validateResult($this->_paymentProcessor, $input, $ids, $objects, TRUE, $paymentProcessorID)) {
+            // CRM_Core_Error::debug_log_message("bbprioritycash Validation failed");
+            echo("bbprioritycash2 Validation failed");
+            exit();
+        }
+
+        $ipn->single($input, $ids, $objects, FALSE, FALSE);
+        $returnURL = base64_url_decode($input['returnURL']);
+
+        // Print the tpl to redirect to success
+        $template = CRM_Core_Smarty::singleton();
+        $template->assign('url', $returnURL);
+        print $template->fetch('CRM/Core/Payment/Bbprioritycash.tpl');
+
+        CRM_Utils_System::civiExit();
+    }
+
 }
