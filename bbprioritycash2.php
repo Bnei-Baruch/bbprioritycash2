@@ -72,7 +72,7 @@ function bbprioritycash2_civicrm_uninstall() {
   $params = array(
     'version' => 3,
     'sequential' => 1,
-    'name' => 'BBP',
+    'name' => 'BBPC',
   );
   $result = civicrm_api('PaymentProcessorType', 'get', $params);
   if ($result["count"] == 1) {
