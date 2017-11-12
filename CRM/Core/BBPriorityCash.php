@@ -7,12 +7,12 @@
  */
 
 require_once 'CRM/Core/Payment.php';
-require_once 'BBPriorityCash2IPN.php';
+require_once 'BBPriorityCashIPN.php';
 
 /**
  * BBPriorityCash payment processor
  */
-class CRM_Core_BBPriorityCash2 extends CRM_Core_Payment
+class CRM_Core_BBPriorityCash extends CRM_Core_Payment
 {
     /**
      * mode of operation: live or test
@@ -233,7 +233,7 @@ class CRM_Core_BBPriorityCash2 extends CRM_Core_Payment
 
         $template = CRM_Core_Smarty::singleton();
         $template->assign('url', $merchantUrl);
-        print $template->fetch('CRM/Core/Payment/Bbprioritycash2.tpl');
+        print $template->fetch('CRM/Core/Payment/BbpriorityCash.tpl');
 
         CRM_Utils_System::civiExit();
     }
@@ -241,7 +241,7 @@ class CRM_Core_BBPriorityCash2 extends CRM_Core_Payment
     public function handlePaymentNotification()
     {
         $input = $ids = $objects = array();
-        $ipn = new CRM_Core_Payment_BBPriorityCash2IPN();
+        $ipn = new CRM_Core_Payment_BBPriorityCashIPN();
 
         // load vars in $input, &ids
         $ipn->getInput($input, $ids);
@@ -254,8 +254,8 @@ class CRM_Core_BBPriorityCash2 extends CRM_Core_Payment
             'return' => 'id',
         ));
         if (!$ipn->validateResult($this->_paymentProcessor, $input, $ids, $objects, TRUE, $paymentProcessorID)) {
-            // CRM_Core_Error::debug_log_message("bbprioritycash Validation failed");
-            echo("bbprioritycash2 Validation failed");
+            // CRM_Core_Error::debug_log_message("bbpriorityCash Validation failed");
+            echo("bbpriorityCash Validation failed");
             exit();
         }
 
@@ -265,7 +265,7 @@ class CRM_Core_BBPriorityCash2 extends CRM_Core_Payment
         // Print the tpl to redirect to success
         $template = CRM_Core_Smarty::singleton();
         $template->assign('url', $returnURL);
-        print $template->fetch('CRM/Core/Payment/Bbprioritycash.tpl');
+        print $template->fetch('CRM/Core/Payment/BbpriorityCash.tpl');
 
         CRM_Utils_System::civiExit();
     }

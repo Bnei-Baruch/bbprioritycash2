@@ -8,7 +8,7 @@
 /**
  * Base class which provides helpers to execute upgrade logic.
  */
-class CRM_Bbprioritycash2_Upgrader_Base {
+class CRM_BbpriorityCash_Upgrader_Base {
 
   /**
    * @var variessubclassofhtis
@@ -41,8 +41,8 @@ class CRM_Bbprioritycash2_Upgrader_Base {
   static public function instance() {
     if (!self::$instance) {
       // FIXME auto-generate.
-      self::$instance = new CRM_Bbprioritycash2_Upgrader(
-        'info.kabbalah.payment.bbprioritycash2',
+      self::$instance = new CRM_BbpriorityCash_Upgrader(
+        'info.kabbalah.payment.bbpriorityCash',
         realpath(__DIR__ . '/../../../')
       );
     }
@@ -56,7 +56,7 @@ class CRM_Bbprioritycash2_Upgrader_Base {
    * task-context; otherwise, this will be non-reentrant.
    *
    * @code
-   * CRM_Bbpriortycash_Upgrader_Base::_queueAdapter($ctx, 'methodName', 'arg1', 'arg2');
+   * CRM_BbpriortyCash_Upgrader_Base::_queueAdapter($ctx, 'methodName', 'arg1', 'arg2');
    * @endcode
    */
   static public function _queueAdapter() {

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<extension key="info.kabbalah.payment.bbprioritycash2" type="module">
-  <file>bbprioritycash2</file>
+<extension key="info.kabbalah.payment.bbpriorityCash" type="module">
+  <file>bbpriorityCash</file>
   <name>(BBPCash) BB Priority Cash Payment Processor</name>
-  <description>Register Payment in Priority</description>
+  <description>Register Cash Payment in Priority</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Gregory Shilin</author>
     <email>gshilin@gmail.com</email>
   </maintainer>
-  <releaseDate>2017-05-14</releaseDate>
+  <releaseDate>2017-11-12</releaseDate>
   <version>1.0</version>
-  <develStage>alpha</develStage>
+  <develStage>stable</develStage>
   <compatibility>
     <ver>4.7</ver>
   </compatibility>
-  <comments>This is a new, undeveloped module</comments>
+  <comments>This is mostly tested module</comments>
   <civix>
-    <namespace>CRM/Bbprioritycash2</namespace>
+    <namespace>CRM/BbpriorityCash</namespace>
   </civix>
 </extension>

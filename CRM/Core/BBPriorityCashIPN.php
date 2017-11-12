@@ -1,6 +1,6 @@
 <?php
 
-class CRM_Core_Payment_BBPriorityCash2IPN extends CRM_Core_Payment_BaseIPN
+class CRM_Core_Payment_BBPriorityCashIPN extends CRM_Core_Payment_BaseIPN
 {
     function __construct()
     {
@@ -63,7 +63,7 @@ class CRM_Core_Payment_BBPriorityCash2IPN extends CRM_Core_Payment_BaseIPN
 
         $contribution = &$objects['contribution'];
         $input['amount'] = $contribution->total_amount;
-        $contribution->txrn_id = 'cash';
+        $contribution->txrn_id = 'Cash';
         return true;
     }
 

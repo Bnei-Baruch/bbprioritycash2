@@ -1,14 +1,14 @@
 <?php
 
-require_once 'bbprioritycash2.civix.php';
+require_once 'bbpriorityCash.civix.php';
 
 /**
  * Implements hook_civicrm_config().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
  */
-function bbprioritycash2_civicrm_config(&$config) {
-  _bbprioritycash2_civix_civicrm_config($config);
+function bbpriorityCash_civicrm_config(&$config) {
+  _bbpriorityCash_civix_civicrm_config($config);
 }
 
 /**
@@ -16,8 +16,8 @@ function bbprioritycash2_civicrm_config(&$config) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
-function bbprioritycash2_civicrm_xmlMenu(&$files) {
-  _bbprioritycash2_civix_civicrm_xmlMenu($files);
+function bbpriorityCash_civicrm_xmlMenu(&$files) {
+  _bbpriorityCash_civix_civicrm_xmlMenu($files);
 }
 
 /**
@@ -25,13 +25,13 @@ function bbprioritycash2_civicrm_xmlMenu(&$files) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
-function bbprioritycash2_civicrm_install() {
+function bbpriorityCash_civicrm_install() {
   $params = array(
     'version' => 3,
-    'name' => 'BBPC',
+    'name' => 'BBPCash',
     'title' => 'BB Priority CASH Payment Processor',
-    'description' => 'Register Cash Payment in Priority',
-    'class_name' => 'BBPriorityCash2',
+    'description' => 'BB Priority Cash Payment Processor',
+    'class_name' => 'BBPriorityCash',
     'billing_mode' => 'notify', // Corresponds to the Processor Type: Form (1), Button (2), Special (3) or Notify (4)
     'user_name_label' => 'User',
     'password_label' => 'Password',
@@ -51,7 +51,7 @@ function bbprioritycash2_civicrm_install() {
   );
 
   civicrm_api('PaymentProcessorType', 'create', $params);
-  _bbprioritycash2_civix_civicrm_install();
+  _bbpriorityCash_civix_civicrm_install();
 }
 
 /**
@@ -59,8 +59,8 @@ function bbprioritycash2_civicrm_install() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_postInstall
  */
-function bbprioritycash2_civicrm_postInstall() {
-  _bbprioritycash2_civix_civicrm_postInstall();
+function bbpriorityCash_civicrm_postInstall() {
+  _bbpriorityCash_civix_civicrm_postInstall();
 }
 
 /**
@@ -68,11 +68,11 @@ function bbprioritycash2_civicrm_postInstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
  */
-function bbprioritycash2_civicrm_uninstall() {
+function bbpriorityCash_civicrm_uninstall() {
   $params = array(
     'version' => 3,
     'sequential' => 1,
-    'name' => 'BBPC',
+    'name' => 'BBPCash',
   );
   $result = civicrm_api('PaymentProcessorType', 'get', $params);
   if ($result["count"] == 1) {
@@ -84,7 +84,7 @@ function bbprioritycash2_civicrm_uninstall() {
     civicrm_api('PaymentProcessorType', 'delete', $params);
   }
 
-  _bbprioritycash2_civix_civicrm_uninstall();
+  _bbpriorityCash_civix_civicrm_uninstall();
 }
 
 /**
@@ -92,8 +92,8 @@ function bbprioritycash2_civicrm_uninstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
-function bbprioritycash2_civicrm_enable() {
-  _bbprioritycash2_civix_civicrm_enable();
+function bbpriorityCash_civicrm_enable() {
+  _bbpriorityCash_civix_civicrm_enable();
 }
 
 /**
@@ -101,8 +101,8 @@ function bbprioritycash2_civicrm_enable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  */
-function bbprioritycash2_civicrm_disable() {
-  _bbprioritycash2_civix_civicrm_disable();
+function bbpriorityCash_civicrm_disable() {
+  _bbpriorityCash_civix_civicrm_disable();
 }
 
 /**
@@ -110,8 +110,8 @@ function bbprioritycash2_civicrm_disable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
-function bbprioritycash2_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  return _bbprioritycash2_civix_civicrm_upgrade($op, $queue);
+function bbpriorityCash_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+  return _bbpriorityCash_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -122,8 +122,8 @@ function bbprioritycash2_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
-function bbprioritycash2_civicrm_managed(&$entities) {
-  _bbprioritycash2_civix_civicrm_managed($entities);
+function bbpriorityCash_civicrm_managed(&$entities) {
+  _bbpriorityCash_civix_civicrm_managed($entities);
 }
 
 /**
@@ -135,8 +135,8 @@ function bbprioritycash2_civicrm_managed(&$entities) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function bbprioritycash2_civicrm_caseTypes(&$caseTypes) {
-  _bbprioritycash2_civix_civicrm_caseTypes($caseTypes);
+function bbpriorityCash_civicrm_caseTypes(&$caseTypes) {
+  _bbpriorityCash_civix_civicrm_caseTypes($caseTypes);
 }
 
 /**
@@ -149,8 +149,8 @@ function bbprioritycash2_civicrm_caseTypes(&$caseTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
  */
-function bbprioritycash2_civicrm_angularModules(&$angularModules) {
-  _bbprioritycash2_civix_civicrm_angularModules($angularModules);
+function bbpriorityCash_civicrm_angularModules(&$angularModules) {
+  _bbpriorityCash_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -158,8 +158,8 @@ function bbprioritycash2_civicrm_angularModules(&$angularModules) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
  */
-function bbprioritycash2_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  _bbprioritycash2_civix_civicrm_alterSettingsFolders($metaDataFolders);
+function bbpriorityCash_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
+  _bbpriorityCash_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
 // --- Functions below this ship commented out. Uncomment as required. ---
@@ -169,7 +169,7 @@ function bbprioritycash2_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) 
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
  *
- * function bbprioritycash2_civicrm_preProcess($formName, &$form) {
+ * function bbpriorityCash_civicrm_preProcess($formName, &$form) {
  *
  * } // */
 
@@ -178,14 +178,14 @@ function bbprioritycash2_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) 
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
  *
- * function bbprioritycash2_civicrm_navigationMenu(&$menu) {
- * _bbprioritycash2_civix_insert_navigation_menu($menu, NULL, array(
- * 'label' => ts('The Page', array('domain' => 'info.kabbalah.payment.bbprioritycash2')),
+ * function bbpriorityCash_civicrm_navigationMenu(&$menu) {
+ * _bbpriorityCash_civix_insert_navigation_menu($menu, NULL, array(
+ * 'label' => ts('The Page', array('domain' => 'info.kabbalah.payment.bbpriorityCash')),
  * 'name' => 'the_page',
  * 'url' => 'civicrm/the-page',
  * 'permission' => 'access CiviReport,access CiviContribute',
  * 'operator' => 'OR',
  * 'separator' => 0,
  * ));
- * _bbprioritycash2_civix_navigationMenu($menu);
+ * _bbpriorityCash_civix_navigationMenu($menu);
  * } // */
