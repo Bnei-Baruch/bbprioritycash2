@@ -233,7 +233,7 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
             }
         }
 
-        $merchantUrl = $config->userFrameworkBaseURL . 'civicrm/payment/ipn?processor_name=BBPC&mode=' . $this->_mode
+        $merchantUrl = $config->userFrameworkBaseURL . 'civicrm/payment/ipn?processor_name=BBPCash&mode=' . $this->_mode
             . '&md=' . $component . '&qfKey=' . $params["qfKey"] . '&' . $merchantUrlParams
             . '&returnURL=' . base64_url_encode($returnURL);
 
