@@ -10,11 +10,6 @@ require_once 'CRM/Core/Payment.php';
 require_once 'BBPriorityCashIPN.php';
 
 
-function base64_url_encode($input)
-{
-    return strtr(base64_encode($input), '+/', '-_');
-}
-
 /**
  * BBPriorityCash payment processor
  */
@@ -28,6 +23,11 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
     protected $_mode = NULL;
     protected $_params = array();
     protected $_doDirectPaymentResult = array();
+
+    function base64_url_encode($input)
+    {
+        return strtr(base64_encode($input), '+/', '-_');
+    }
 
     /**
      * Set result from do Direct Payment for test purposes.
@@ -235,7 +235,7 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
 
         $merchantUrl = $config->userFrameworkBaseURL . 'civicrm/payment/ipn?processor_name=BBPCash&mode=' . $this->_mode
             . '&md=' . $component . '&qfKey=' . $params["qfKey"] . '&' . $merchantUrlParams
-            . '&returnURL=' . base64_url_encode($returnURL);
+            . '&returnURL=' . $this->base64_url_encode($returnURL);
 
         $template = CRM_Core_Smarty::singleton();
         $template->assign('url', $merchantUrl);
