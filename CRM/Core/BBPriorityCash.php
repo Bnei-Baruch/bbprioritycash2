@@ -238,6 +238,11 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
         CRM_Utils_System::civiExit();
     }
 
+    function base64_url_encode($input)
+    {
+        return strtr(base64_encode($input), '+/', '-_');
+    }
+
     public function handlePaymentNotification()
     {
         $input = $ids = $objects = array();
