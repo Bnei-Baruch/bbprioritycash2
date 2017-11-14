@@ -9,6 +9,12 @@
 require_once 'CRM/Core/Payment.php';
 require_once 'BBPriorityCashIPN.php';
 
+
+function base64_url_encode($input)
+{
+    return strtr(base64_encode($input), '+/', '-_');
+}
+
 /**
  * BBPriorityCash payment processor
  */
@@ -236,11 +242,6 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
         print $template->fetch('CRM/Core/Payment/BbpriorityCash.tpl');
 
         CRM_Utils_System::civiExit();
-    }
-
-    function base64_url_encode($input)
-    {
-        return strtr(base64_encode($input), '+/', '-_');
     }
 
     public function handlePaymentNotification()
