@@ -29,6 +29,11 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
         return strtr(base64_encode($input), '+/', '-_');
     }
 
+    function base64_url_decode($input)
+    {
+        return base64_decode(strtr($input, '-_', '+/'));
+    }
+
     /**
      * Set result from do Direct Payment for test purposes.
      *
@@ -266,7 +271,7 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
         }
 
         $ipn->single($input, $ids, $objects, FALSE, FALSE);
-        $returnURL = base64_url_decode($input['returnURL']);
+        $returnURL = $this->base64_url_decode($input['returnURL']);
 
         // Print the tpl to redirect to success
         $template = CRM_Core_Smarty::singleton();
