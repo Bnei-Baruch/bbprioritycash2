@@ -257,13 +257,6 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
         // load vars in $input, &ids
         $ipn->getInput($input, $ids);
 
-        $contribution_id = $input["contributionID"];
-        $query_params = array(
-            1 => array($contribution_id, 'String')
-        );
-        CRM_Core_DAO::executeQuery(
-            'UPDATE civicrm_contribution SET contribution_status_id = 1 WHERE id = %1', $query_params);
-
         $paymentProcessorTypeID = CRM_Core_DAO::getFieldValue('CRM_Financial_DAO_PaymentProcessorType', $this->_processorName, 'id', 'name');
         $paymentProcessorID = (int)civicrm_api3('PaymentProcessor', 'getvalue', array(
             'is_test' => ($this->_mode == 'test') ? 1 : 0,
