@@ -202,6 +202,7 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
 
         if ($component != 'contribute' && $component != 'event') {
             CRM_Core_Error::fatal(ts('Component is invalid'));
+            exit();
         }
 
         if (array_key_exists('webform_redirect_success', $params)) {
