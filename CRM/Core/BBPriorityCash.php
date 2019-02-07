@@ -272,7 +272,17 @@ class CRM_Core_BBPriorityCash extends CRM_Core_Payment
         }
 
         $ipn->single($input, $ids, $objects, FALSE, FALSE);
-        $returnURL = $this->base64_url_decode($input['returnURL']);
+        $url = $this->base64_url_decode($input['returnURL']);
+	$url = preg_replace('/(.*)(?|&)'. $key .'=[^&]+?(&)(.*)/i', '$1$2$4', $url .'&');
+	$url = substr($url, 0, -1);
+	$key = "success";
+	$value = "1";
+	if (strpos($url, '?') === false) {
+	    $returnURL = ($url .'?'. $key .'='. $value);
+	} else {
+	    $returnURL = ($url .'&'. $key .'='. $value);
+	}
+	
 
         // Print the tpl to redirect to success
         $template = CRM_Core_Smarty::singleton();
